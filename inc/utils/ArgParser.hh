@@ -6,6 +6,8 @@
 #include <string>
 #include <boost/program_options.hpp>
 
+#include "utils/Logger.hh"
+
  namespace pduck
  {
     namespace utils

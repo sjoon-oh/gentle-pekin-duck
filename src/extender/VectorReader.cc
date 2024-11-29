@@ -116,7 +116,7 @@ bool pduck::extender::VectorReader::loadVectors() noexcept
 
 bool pduck::extender::VectorReader::saveVectors(const char* p_path) noexcept
 {
-
+    return 0;
 }
 
 

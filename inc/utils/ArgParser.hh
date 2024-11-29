@@ -6,8 +6,6 @@
 #include <string>
 #include <boost/program_options.hpp>
 
-#include "utils/Logger.hh"
-
  namespace pduck
  {
     namespace utils
@@ -17,14 +15,12 @@
         class ArgumentParser final
         {
         private:
-            Logger                      m_logger;
-
             po::options_description     m_desc;
             po::variables_map           m_vm;
 
         public:
             ArgumentParser() noexcept
-                : m_logger("parser"), m_desc("Allowed options")
+                : m_desc("Allowed options")
             {
 
             }
@@ -67,7 +63,7 @@
                 } 
                 catch (const po::error& e) 
                 {
-                    m_logger.getLogger()->warn("Error parsing arguments: {}", e.what());
+
                 }
             }
 
@@ -77,7 +73,6 @@
                     return m_vm[p_option].as<int>();
 
                 else
-                    m_logger.getLogger()->warn("{} was not set.", p_option);
                     
                 return 0;
             }
@@ -86,9 +81,6 @@
             {
                 if (m_vm.count(p_option))
                     return m_vm[p_option].as<double>();
-
-                else
-                    m_logger.getLogger()->warn("{} was not set.", p_option);
                     
                 return 0;
             }
@@ -98,9 +90,6 @@
                 if (m_vm.count(p_option))
                     return m_vm[p_option].as<std::string>();
 
-                else
-                    m_logger.getLogger()->warn("{} was not set.", p_option);
-                    
                 return "";
             }
 

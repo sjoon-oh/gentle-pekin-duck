@@ -54,11 +54,9 @@ namespace pduck
                 std::unique_ptr<::pduck::memory::FixedBuffer>> 
                                                 m_vectorList;
 
-            ::pduck::utils::Logger              m_logger;
 
         public:
             VectorReader() noexcept
-                : m_logger("vector-reader")
             {
 
             }

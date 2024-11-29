@@ -9,9 +9,9 @@
 #include <array>
 #include <fstream>
 
-#include "memory/Buffer.hh"
-#include "utils/Logger.hh"
+#include <cassert>
 
+#include "memory/Buffer.hh"
 #include "extender/VectorReader.hh"
 
 

@@ -1,13 +1,6 @@
-/**
- * @file buffer.hh
- * @brief Defines the Buffer and FixedBuffer classes for memory management.
- * 
- * This file contains the definition of the Buffer class, which provides a base
- * class for managing memory buffers, and the FixedBuffer class, which is a 
- * concrete implementation of Buffer with a fixed size.
- * 
- * @author Sukjoon Oh
- * @date 2023
+/*
+ * buffer.hh
+ * Author: Sukjoon Oh (sjoon@kaist.ac.kr)
  */
 
 #ifndef _BUFFER_H
@@ -37,6 +30,16 @@ namespace pduck
             std::unique_ptr<std::uint8_t[]> m_blockContainer; ///< Unique pointer to the memory block.
 
         public:
+            /**
+             * @brief Constructs a Buffer object.
+             * @param p_size Size of the buffer.
+             */
+            Buffer(size_t p_size) noexcept
+                : m_blockSize(p_size)
+            {
+                m_blockContainer.reset(new std::uint8_t[m_blockSize]);
+            }
+
             /**
              * @brief Constructs a Buffer object.
              * @param p_buffer Pointer to the initial buffer.
@@ -85,6 +88,17 @@ namespace pduck
         class FixedBuffer : public Buffer
         {
         public:
+
+            /**
+             * @brief Constructs a FixedBuffer object.
+             * @param p_size Size of the buffer.
+             */
+            FixedBuffer(size_t p_size) noexcept
+                : Buffer(p_size)
+            {
+
+            }
+
             /**
              * @brief Constructs a FixedBuffer object.
              * @param p_buffer Pointer to the initial buffer.

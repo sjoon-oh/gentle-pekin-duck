@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "utils/logger.hh"
-#include "memory/buffer.hh"
+#include "utils/Logger.hh"
+#include "memory/Buffer.hh"
 
 int
 main()

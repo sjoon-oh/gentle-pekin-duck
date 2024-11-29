@@ -10,9 +10,9 @@
 
 #include <cstdio>
 
-#include "memory/buffer.hh"
-#include "cache/cache.hh"
-#include "cache/lfu.hh"
+#include "memory/Buffer.hh"
+#include "cache/CacheBase.hh"
+#include "cache/CacheLfu.hh"
 
 
 size_t pduck::cache::weak::LfuCacheFixedBuffer::evictOverflows(size_t p_newSize) noexcept

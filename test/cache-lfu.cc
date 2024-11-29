@@ -10,14 +10,14 @@
 #include <fstream>
 #include <memory>
 
-#include "utils/logger.hh"
-#include "utils/argument.hh"
+#include "utils/Logger.hh"
+#include "utils/ArgParser.hh"
 
-#include "cache/lru.hh"
-#include "cache/fifo.hh"
-#include "cache/lfu.hh"
+#include "cache/CacheLru.hh"
+#include "cache/CacheFifo.hh"
+#include "cache/CacheLfu.hh"
 
-#include "utils/timer.hh"
+#include "utils/Timer.hh"
 
 
 int

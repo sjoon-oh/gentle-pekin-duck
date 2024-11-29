@@ -9,8 +9,8 @@
 #include <list>
 #include <unordered_map>
 
-#include "memory/buffer.hh"
-#include "cache/cache.hh"
+#include "memory/Buffer.hh"
+#include "cache/CacheBase.hh"
 
 namespace pduck
 {

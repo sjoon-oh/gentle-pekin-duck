@@ -7,8 +7,8 @@
 #include <vector>
 #include <unordered_map>
 
-#include "memory/buffer.hh"
-#include "utils/timer.hh"
+#include "memory/Buffer.hh"
+#include "utils/Timer.hh"
 
 namespace pduck
 {

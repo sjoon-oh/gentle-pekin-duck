@@ -9,9 +9,9 @@
 #include <list>
 #include <map>
 
-#include "memory/buffer.hh" 
-#include "cache/cache.hh"
-#include "cache/lru.hh"
+#include "memory/Buffer.hh" 
+#include "cache/CacheBase.hh"
+#include "cache/CacheLru.hh"
 
 namespace pduck
 {

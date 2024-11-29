@@ -8,8 +8,8 @@
 
 #include <cstdio>
 
-#include "memory/buffer.hh"
-#include "cache/lru.hh"
+#include "memory/Buffer.hh"
+#include "cache/CacheLru.hh"
 
 /**
  * Evicts elements from the cache until there is enough space for a new element.

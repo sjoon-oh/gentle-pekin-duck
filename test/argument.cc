@@ -1,8 +1,8 @@
 #include <iostream>
 // #include <boost/program_options.hpp>
 
-#include "utils/logger.hh"
-#include "utils/argument.hh"
+#include "utils/Logger.hh"
+#include "utils/ArgParser.hh"
 
 int main(int argc, char* argv[]) {
     

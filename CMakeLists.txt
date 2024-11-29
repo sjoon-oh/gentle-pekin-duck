@@ -29,6 +29,7 @@ set(Boost_USE_STATIC_LIBS ON)
 
 # External sources
 include_directories(${PROJECT_SOURCE_DIR}/extern/spdlog/include)
+include_directories(${PROJECT_SOURCE_DIR}/extern) # For YCSB-C, include all for extern directory
 
 # Internal sources
 # include_directories(${PROJECT_SOURCE_DIR}/inc)

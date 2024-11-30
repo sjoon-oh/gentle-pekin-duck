@@ -135,6 +135,27 @@ namespace pduck
 
                 exportFile.close();
             }
+
+            /**
+             * @brief Returns a vector of elapsed times.
+             * This function calculates the elapsed time between the start and stop
+             * times for each Timestamp object in the list and returns the results as
+             * a vector of doubles.
+             *
+             * @return A vector of elapsed times in milliseconds.
+             */
+            std::vector<double> getElapsedTimes() noexcept
+            {
+                std::vector<double> elapsedTimes;
+
+                for (int i = 0; i < m_timeList.size(); i++)
+                {
+                    double elapsedMs = getElapsedMs(m_timeList[i].m_timeStart, m_timeList[i].m_timeEnd);
+                    elapsedTimes.push_back(elapsedMs);
+                }
+
+                return elapsedTimes;
+            }
         };
     }
 }

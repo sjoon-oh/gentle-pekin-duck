@@ -39,12 +39,12 @@ FONT_KEY                        ="Helvetica,22"     # Key font setting
 # ─────────────────────────────────────────────────────┐
 TITLE=""
 
-YLABEL="No. of Occurrences"
-XLABEL="Unique Vector ID"
+YLABEL="Frequencey(Log)"
+XLABEL="Vector IDs (Log)"
 # ─────────────────────────────────────────────────────┐
-set terminal                    pngcairo color \
+set terminal                    pngcairo monochrome \
                                 font FONT_GLOBAL \
-                                size 900,700
+                                size 750,550
 
 set title TITLE                 font FONT_TITLE
 unset title
@@ -54,6 +54,9 @@ set ylabel YLABEL               font FONT_YLABEL
 
 set xtics nomirror
 set ytics nomirror
+
+set xtics ("1" 1, "10" 10, "100" 100, "1K" 1000, "10K" 10000, "100K" 100000)
+set ytics ("1" 1, "10" 10, "100" 100, "1K" 1000, "10K" 10000, "100K" 100000)
 
 set grid ytics
 
@@ -86,12 +89,17 @@ set style line 8 linecolor rgb "black"   linetype 8 linewidth 1.5 pointtype 8 po
 
 # ────────────────────────────────── Plotting ──────────────────────────────────────────
 
-set style                       data histogram
-set style                       histogram cluster gap 1
+set logscale y
+set logscale x
 
-set style                       fill solid border -1
+# set style                       data histogram
+# set style                       histogram cluster gap 1
+
+# set style                       box
+
+# set style                       fill solid border -1
 
 set border 3                    # Remove the top and right border
 
-plot DATA_FNAME1                using 1 \
-                                title "Sequence 1" ls 1, \
+plot DATA_FNAME1                using 2 \
+                                title "Mapped Vector" ls 1, \

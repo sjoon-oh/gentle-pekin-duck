@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "memory/Buffer.hh"
 
@@ -40,11 +41,19 @@ namespace pduck
 
             virtual bool loadVectors() noexcept = 0;
 
-            virtual bool saveVectors(const char* p_path) noexcept = 0;
+            virtual size_t loadedSize() noexcept = 0;
 
+            virtual std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& getVectorList() noexcept = 0;
+
+            virtual size_t removeDuplicates() noexcept = 0;
+
+            virtual std::map<size_t, size_t>& getUniqueMap() noexcept = 0;
+
+            virtual void reset() noexcept = 0;
         };
 
-        class VectorReader : public IVectorReader
+
+        class VectorQueryReader : public IVectorReader
         {
         protected:
             struct VectorProfile                m_vectorProfile;
@@ -54,14 +63,15 @@ namespace pduck
                 std::unique_ptr<::pduck::memory::FixedBuffer>> 
                                                 m_vectorList;
 
+            std::map<size_t, size_t>            m_uniqueMap;
 
         public:
-            VectorReader() noexcept
+            VectorQueryReader() noexcept
             {
 
             }
 
-            virtual ~VectorReader() = default;
+            virtual ~VectorQueryReader() = default;
 
             virtual void setPath(const char* p_path) noexcept override;
 
@@ -69,11 +79,68 @@ namespace pduck
 
             virtual bool loadVectors() noexcept override;
 
-            virtual bool saveVectors(const char* p_path) noexcept override;
+            virtual size_t loadedSize() noexcept override
+            {
+                return m_vectorList.size();
+            }
 
+            virtual std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& getVectorList() noexcept override
+            {
+                return m_vectorList;
+            }
 
+            virtual std::map<size_t, size_t>& getUniqueMap() noexcept override
+            {
+                return m_uniqueMap;
+            }
 
+            virtual size_t removeDuplicates() noexcept override;
+
+            virtual void reset() noexcept override;
         };
+
+
+        class GroundTruthReader
+        {
+        protected:
+            std::string                         m_path;
+            std::vector<
+                std::unique_ptr<::pduck::memory::FixedBuffer>> 
+                                                m_groundTruthChunkList;
+            
+            size_t                              m_topK;
+
+        public:
+            GroundTruthReader() noexcept
+            {
+
+            }
+
+            virtual ~GroundTruthReader() = default;
+
+            virtual void setPath(const char* p_path) noexcept;
+
+            virtual bool loadGroundTruth(size_t p_numQueryVec) noexcept;
+
+            virtual size_t loadedSize() noexcept
+            {
+                return m_groundTruthChunkList.size();
+            }
+
+            virtual size_t getTopK() noexcept
+            {
+                return m_topK;
+            }
+
+            virtual std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& getGroundTruthList() noexcept
+            {
+                return m_groundTruthChunkList;
+            }
+
+            virtual void reset() noexcept;
+        };
+
+
     }
 }
 

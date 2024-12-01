@@ -59,6 +59,19 @@ target_link_libraries(${PDUCKLIB}
     PUBLIC pthread ${Boost_LIBRARIES}
 )
 
+# App: generator
+add_executable(
+    pduck-query-extender ${HDR_FILES} ${SRC_FILES} ${PROJECT_SOURCE_DIR}/app/VectorExtender.cc)
+set_target_properties(
+    pduck-query-extender PROPERTIES 
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin
+    LINKER_LANGUAGE CXX
+)
+target_include_directories(pduck-query-extender PUBLIC ${PROJECT_SOURCE_DIR}/inc)
+target_link_libraries(pduck-query-extender PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
+add_dependencies(pduck-query-extender ${Boost_LIBRARIES} ${PDUCKLIB})
+
+
 # Test binary
 option(TEST_BINARY "TEST-BINARY" ON)
 if (TEST_BINARY)
@@ -98,5 +111,17 @@ if (TEST_BINARY)
     target_include_directories(pduck-cache-lfu PUBLIC ${PROJECT_SOURCE_DIR}/inc)
     target_link_libraries(pduck-cache-lfu PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
     add_dependencies(pduck-cache-lfu ${Boost_LIBRARIES} ${PDUCKLIB})
+
+    # vector reader test
+    # add_executable(
+    #     pduck-vector-reader ${HDR_FILES} ${SRC_FILES} ${PROJECT_SOURCE_DIR}/test/vec-extender.cc)
+    # set_target_properties(
+    #     pduck-vector-reader PROPERTIES 
+    #     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin
+    #     LINKER_LANGUAGE CXX
+    # )
+    # target_include_directories(pduck-vector-reader PUBLIC ${PROJECT_SOURCE_DIR}/inc)
+    # target_link_libraries(pduck-vector-reader PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
+    # add_dependencies(pduck-vector-reader ${Boost_LIBRARIES} ${PDUCKLIB})
 
 endif()

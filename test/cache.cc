@@ -69,7 +69,7 @@ main(int argc, char* argv[])
 
         if (cachedData != nullptr)
         {
-            uint8_t* cacheAddr = cachedData->getAddr();
+            uint8_t* cacheAddr = cachedData->getBlock();
             uint8_t* rawAddr = (uint8_t*)requestVec.data() + i * sizeof(std::int32_t);
 
             if (std::memcmp(cacheAddr, rawAddr, sizeof(std::int32_t)) != 0)
@@ -113,7 +113,7 @@ main(int argc, char* argv[])
 
         if (cachedData != nullptr)
         {
-            uint8_t* cacheAddr = cachedData->getAddr();
+            uint8_t* cacheAddr = cachedData->getBlock();
             uint8_t* rawAddr = (uint8_t*)requestVec.data() + i * sizeof(std::int32_t);
 
             if (std::memcmp(cacheAddr, rawAddr, sizeof(std::int32_t)) != 0)

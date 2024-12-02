@@ -124,4 +124,28 @@ if (TEST_BINARY)
     # target_link_libraries(pduck-vector-reader PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
     # add_dependencies(pduck-vector-reader ${Boost_LIBRARIES} ${PDUCKLIB})
 
+    # Dynamic buffer test
+    add_executable(
+        pduck-dyn-buf ${HDR_FILES} ${SRC_FILES} ${PROJECT_SOURCE_DIR}/test/dynamic-buffer.cc)
+    set_target_properties(
+        pduck-dyn-buf PROPERTIES 
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin
+        LINKER_LANGUAGE CXX
+    )
+    target_include_directories(pduck-dyn-buf PUBLIC ${PROJECT_SOURCE_DIR}/inc)
+    target_link_libraries(pduck-dyn-buf PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
+    add_dependencies(pduck-dyn-buf ${Boost_LIBRARIES} ${PDUCKLIB})
+
+    # MMaped buffer test
+    add_executable(
+        pduck-mmapped-buf ${HDR_FILES} ${SRC_FILES} ${PROJECT_SOURCE_DIR}/test/mmapped-buffer.cc)
+    set_target_properties(
+        pduck-mmapped-buf PROPERTIES 
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin
+        LINKER_LANGUAGE CXX
+    )
+    target_include_directories(pduck-mmapped-buf PUBLIC ${PROJECT_SOURCE_DIR}/inc)
+    target_link_libraries(pduck-mmapped-buf PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
+    add_dependencies(pduck-mmapped-buf ${Boost_LIBRARIES} ${PDUCKLIB})
+
 endif()

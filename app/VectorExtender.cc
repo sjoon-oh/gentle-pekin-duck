@@ -309,10 +309,10 @@ int main(int argc, char* argv[])
 
         for (auto& elem: refinedSequence)
         {   
-            uint8_t* queryBuffer = vectorList[vectorMapper[elem]]->getAddr();
+            uint8_t* queryBuffer = vectorList[vectorMapper[elem]]->getBlock();
             size_t queryBufferSize = vectorList[vectorMapper[elem]]->getSize();
 
-            uint8_t* gtBuffer = groundTruthList[vectorMapper[elem]]->getAddr();
+            uint8_t* gtBuffer = groundTruthList[vectorMapper[elem]]->getBlock();
             size_t gtBufferSize = groundTruthList[vectorMapper[elem]]->getSize();
 
             // 

@@ -59,7 +59,7 @@ namespace pduck
                 p_vectorList.emplace_back(new ::pduck::memory::FixedBuffer(readSize));   
                                                                                 // Create a new buffer
 
-                std::uint8_t* targetReadBuffer = p_vectorList.back()->getAddr();
+                std::uint8_t* targetReadBuffer = p_vectorList.back()->getBlock();
 
                 vectorFile.seekg(readOffset, std::ios::beg);                    // Move to the next unread position
                 vectorFile.read((char*)targetReadBuffer, readSize);             // Read the vector (dimension * type size)
@@ -130,7 +130,7 @@ namespace pduck
                 p_groundTruthChunkList.emplace_back(new ::pduck::memory::FixedBuffer(readSize));
                                                                                 // Create a new buffer
 
-                std::uint8_t* targetReadBuffer = p_groundTruthChunkList.back()->getAddr();
+                std::uint8_t* targetReadBuffer = p_groundTruthChunkList.back()->getBlock();
 
                 gtFile.seekg(readOffset, std::ios::beg);                        // Move to the next unread position
                 gtFile.read((char*)targetReadBuffer, readSize);                 // Read the vector (dimension * type size)
@@ -190,8 +190,8 @@ size_t pduck::extender::VectorQueryReader::removeDuplicates() noexcept
                     continue;
 
                 int rc = std::memcmp(                                           // Compare the vectors.
-                    curBuffer->getAddr(),
-                    cmpBuffer->getAddr(),
+                    curBuffer->getBlock(),
+                    cmpBuffer->getBlock(),
                     curBuffer->getSize()
                 );
 

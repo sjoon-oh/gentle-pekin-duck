@@ -41,7 +41,7 @@ def load_query(path):
     query_vec_dimension = struct.unpack('i', query_vec_f.read(4))[0]
 
     query_vec = np.frombuffer(
-        query_vec_f.read(query_vec_count * query_vec_dimension), dtype=np.int32).reshape((query_vec_count, query_vec_dimension)
+        query_vec_f.read(query_vec_count * query_vec_dimension), dtype=np.int8).reshape((query_vec_count, query_vec_dimension)
         )
 
     print(f"Query vector shape: {query_vec.shape}")

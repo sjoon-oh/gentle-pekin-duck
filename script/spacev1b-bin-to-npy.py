@@ -35,7 +35,7 @@ def load_base(path):
 def load_query(path):
 
     # Example: path = 'vectors.bin'
-    query_vec_f = open
+    query_vec_f = open(path, 'rb')
 
     query_vec_count = struct.unpack('i', query_vec_f.read(4))[0]
     query_vec_dimension = struct.unpack('i', query_vec_f.read(4))[0]
@@ -54,7 +54,7 @@ def load_query(path):
 def load_gt(path):
 
     # Example: path = 'vectors.bin'
-    gt_vec_f = open
+    gt_vec_f = open(path, 'rb')
 
     gt_vec_count = struct.unpack('i', gt_vec_f.read(4))[0]
     gt_vec_topk = struct.unpack('i', gt_vec_f.read(4))[0]

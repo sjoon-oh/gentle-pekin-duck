@@ -50,6 +50,8 @@ namespace pduck
             virtual std::map<size_t, size_t>& getUniqueMap() noexcept = 0;
 
             virtual void reset() noexcept = 0;
+
+            virtual void exportHumanReadable(const char* p_path) noexcept = 0;
         };
 
 
@@ -138,6 +140,8 @@ namespace pduck
             }
 
             virtual void reset() noexcept;
+
+            virtual void exportHumanReadable(const char* p_path) noexcept;
         };
 
 

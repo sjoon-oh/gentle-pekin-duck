@@ -23,9 +23,11 @@ rm sequence-freqs.csv
     --number 1000000 \
     --dimension 100 \
     --type INT8 \
-    --input-query $WORKING_PATH/dataset/spacev1b/query.bin \
+    --input-query $WORKING_PATH/dataset/spacev1b/query_log.bin \
     --output-query $WORKING_PATH/temp/query_extended.bin \
-    --input-gt $WORKING_PATH/dataset/spacev1b/truth.bin \
+    --input-gt $WORKING_PATH/dataset/spacev1b/query_log_gtgen.bin \
     --output-gt $WORKING_PATH/temp/truth_extended.bin \
+
+
 
 

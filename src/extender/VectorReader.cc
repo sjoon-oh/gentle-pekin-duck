@@ -228,6 +228,11 @@ void pduck::extender::VectorQueryReader::reset() noexcept
     m_path.clear();
 }
 
+void pduck::extender::VectorQueryReader::exportHumanReadable(const char* p_path) noexcept
+{
+    return;
+}
+
 //
 // GroundTruthReader
 void pduck::extender::GroundTruthReader::setPath(const char* p_path) noexcept
@@ -247,6 +252,11 @@ void pduck::extender::GroundTruthReader::reset() noexcept
 {
     m_groundTruthChunkList.clear();
     m_path.clear();
+}
+
+void pduck::extender::GroundTruthReader::exportHumanReadable(const char* p_path) noexcept
+{
+    return;
 }
 
 

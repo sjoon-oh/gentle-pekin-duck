@@ -90,8 +90,6 @@ namespace pduck
             std::unordered_map<uint64_t, std::unique_ptr<FixedBufferType>>  m_dataContainer;    // Data container for the cache
             std::vector<struct CacheObjInfo>                             m_delayedContainer; // Delayed container for the cache
 
-            
-
             virtual bool isCached(uint64_t p_key) noexcept
             {
                 return (m_dataContainer.find(p_key) != m_dataContainer.end());

@@ -35,5 +35,7 @@
 CMakeCache.txt
 cmake_install.cmake_install
 CMakeFiles
+build/
+*.csv
 
 temp

@@ -148,4 +148,16 @@ if (TEST_BINARY)
     target_link_libraries(pduck-mmapped-buf PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
     add_dependencies(pduck-mmapped-buf ${Boost_LIBRARIES} ${PDUCKLIB})
 
+    # Extender test
+    add_executable(
+        pduck-extender-sequence ${HDR_FILES} ${SRC_FILES} ${PROJECT_SOURCE_DIR}/test/extender.cc)
+    set_target_properties(
+        pduck-extender-sequence PROPERTIES 
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin
+        LINKER_LANGUAGE CXX
+    )
+    target_include_directories(pduck-extender-sequence PUBLIC ${PROJECT_SOURCE_DIR}/inc)
+    target_link_libraries(pduck-extender-sequence PUBLIC ${Boost_LIBRARIES} ${PDUCKLIB})
+    add_dependencies(pduck-extender-sequence ${Boost_LIBRARIES} ${PDUCKLIB})
+
 endif()

@@ -29,6 +29,8 @@ def load_base(path):
 
     base_vec_f.close()
 
+    print(f"Base vector numpy-type load done")
+
     return base_vec
 
 
@@ -48,6 +50,8 @@ def load_query(path):
 
     query_vec_f.close()
 
+    print(f"Query vector numpy-type load done")
+
     return query_vec
 
 
@@ -59,19 +63,24 @@ def load_gt(path):
     gt_vec_count = struct.unpack('i', gt_vec_f.read(4))[0]
     gt_vec_topk = struct.unpack('i', gt_vec_f.read(4))[0]
 
+    print(f"gt_vec_count: {gt_vec_count}")
+    print(f"gt_vec_topk: {gt_vec_topk}")
+
     gt_vec = np.frombuffer(
         gt_vec_f.read(gt_vec_count * gt_vec_topk * 4), dtype=np.int32).reshape((gt_vec_count, gt_vec_topk)
         )
 
-    gt_distance_list = np.frombuffer(
+    gt_distance = np.frombuffer(
         gt_vec_f.read(gt_vec_count * gt_vec_topk * 4), dtype=np.float32).reshape((gt_vec_count, gt_vec_topk)
         )
     
     print(f"Ground Truth shape: {gt_vec.shape}")
 
     gt_vec_f.close()
+
+    print(f"Ground truth file numpy-type load done")
   
-    return gt_vec, gt_distance_list
+    return gt_vec, gt_distance
 
 
 if __name__ == "__main__":

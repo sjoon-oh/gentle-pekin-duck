@@ -25,7 +25,7 @@ def load_base(path):
     print(f"base_vec_count: {base_vec_count}")
     print(f"base_vec_dimension: {base_vec_dimension}")
 
-    printf(f"Base vector shape: {base_vec.shape}")
+    print(f"Base vector shape: {base_vec.shape}")
 
     base_vec_f.close()
 

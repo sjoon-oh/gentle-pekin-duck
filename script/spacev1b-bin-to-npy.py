@@ -70,9 +70,9 @@ def load_gt(path):
         gt_vec_f.read(gt_vec_count * gt_vec_topk * 4), dtype=np.int32).reshape((gt_vec_count, gt_vec_topk)
         )
 
-    gt_distance = np.frombuffer(
-        gt_vec_f.read(gt_vec_count * gt_vec_topk * 4), dtype=np.float32).reshape((gt_vec_count, gt_vec_topk)
-        )
+    # gt_distance = np.frombuffer(
+    #     gt_vec_f.read(gt_vec_count * gt_vec_topk * 4), dtype=np.float32).reshape((gt_vec_count, gt_vec_topk)
+    #     )
     
     print(f"Ground Truth shape: {gt_vec.shape}")
 
@@ -80,7 +80,7 @@ def load_gt(path):
 
     print(f"Ground truth file numpy-type load done")
   
-    return gt_vec, gt_distance
+    return gt_vec
 
 
 if __name__ == "__main__":
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     np_query_vec = load_query(args.path_query)
     np.save(args.path_query + '.npy', np_query_vec)
 
-    np_gt_vec, np_gt_dist = load_gt(args.path_gt)
+    np_gt_vec = load_gt(args.path_gt)
     np.save(args.path_gt + '.npy', np_gt_vec)
 
 

@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
         = std::make_unique<pduck::extender::VectorQueryReader>();
 
     std::unique_ptr<pduck::extender::GroundTruthReader> groundTruthReader 
-        = std::make_unique<pduck::extender::GroundTruthReader>();
+        = std::make_unique<pduck::extender::GroundTruthReader>(true);
 
     struct pduck::extender::VectorProfile vectorProfile;
 
@@ -332,6 +332,44 @@ int main(int argc, char* argv[])
             "Exported query file size: {}, ground truth file size: {}", 
                 queryFileWriteOffset, gtFileWriteOffset
             );
+
+        // Tests:
+        size_t distanceListSize = groundTruthReader->getDistanceList().size();
+        pduck::utils::Logger::getInstance().getLogger()->info(
+            "Distances: {}", distanceListSize
+            );
+
+        if (distanceListSize > 0)
+        {
+            std::string distancePath = "distance-list";
+            size_t distanceFileWriteOffset = 0;
+
+            std::fstream exportDistFile(distancePath, std::ios::out | std::ios::binary);
+
+            exportDistFile.seekp(distanceFileWriteOffset, std::ios::beg);
+            exportDistFile.write((char*)&numVectors, sizeof(std::int32_t));         // GT file: Write the first 4 bytes as the number of vectors.
+            distanceFileWriteOffset += sizeof(std::int32_t);
+            
+            exportDistFile.seekp(distanceFileWriteOffset, std::ios::beg);
+            exportDistFile.write((char*)&numTopK, sizeof(std::int32_t));            // GT file: Write the second 4 bytes as the number of top-k.
+            distanceFileWriteOffset += sizeof(std::int32_t);
+
+            auto& distanceList = groundTruthReader->getDistanceList();
+            for (auto& elem: refinedSequence)                                       // Added, the distance file
+            {
+                uint8_t* distBuffer = distanceList[vectorMapper[elem]]->getBlock();
+                size_t distBufferSize = distanceList[vectorMapper[elem]]->getSize();
+
+                //
+                // Export the ground truth vector
+                exportDistFile.seekp(distanceFileWriteOffset, std::ios::beg);
+                exportDistFile.write((char*)distBuffer, distBufferSize);
+
+                distanceFileWriteOffset += distBufferSize;
+            }
+
+            exportDistFile.close();
+        }
 
         exportQueryFile.close();
         exportGTFile.close();

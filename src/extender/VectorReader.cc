@@ -22,8 +22,8 @@ namespace pduck
     namespace extender
     {
         bool loadDefaultQueryVectors(
-            const char* p_path, 
-            struct VectorProfile& p_vectorProfile,
+                const char* p_path, 
+                struct VectorProfile& p_vectorProfile,
             std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& p_vectorList) noexcept
         {
             std::fstream vectorFile(p_path, std::ios::binary | std::ios::in);
@@ -59,10 +59,10 @@ namespace pduck
                 p_vectorList.emplace_back(new ::pduck::memory::FixedBuffer(readSize));   
                                                                                 // Create a new buffer
 
-                std::uint8_t* targetReadBuffer = p_vectorList.back()->getBlock();
+                    std::uint8_t* targetReadBuffer = p_vectorList.back()->getBlock();
 
-                vectorFile.seekg(readOffset, std::ios::beg);                    // Move to the next unread position
-                vectorFile.read((char*)targetReadBuffer, readSize);             // Read the vector (dimension * type size)
+                    vectorFile.seekg(readOffset, std::ios::beg);                    // Move to the next unread position
+                    vectorFile.read((char*)targetReadBuffer, readSize);             // Read the vector (dimension * type size)
 
                 readOffset += readSize;                                         // Update the read offset
     
@@ -93,10 +93,13 @@ namespace pduck
         }
 
         bool loadDefaultGroundTruth(
-            const char* p_path, 
-            size_t p_numQueryVec,
-            size_t& p_numTopK,
-            std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& p_groundTruthChunkList) noexcept
+                const char* p_path, 
+                size_t p_numQueryVec,
+                size_t& p_numTopK,
+                std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& p_groundTruthChunkList,
+                std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& p_distanceList,
+                bool p_loadDistance = false
+            ) noexcept
         {
             std::fstream gtFile(p_path, std::ios::binary | std::ios::in);
 
@@ -138,6 +141,29 @@ namespace pduck
                 readOffset += readSize;                                         // Update the read offset
 
                 numQuery++;                                                     // Update the number of loaded vectors
+            }
+
+            if (p_loadDistance)
+            {
+                readSize = (numQuery * sizeof(float));
+                numQuery = 0;
+
+                while (numQuery < p_numQueryVec)                                // Read until the end of the file
+                {
+                    p_distanceList.emplace_back(new ::pduck::memory::FixedBuffer(readSize));
+                                                                                // Create a new buffer
+
+                    std::uint8_t* targetReadBuffer = p_distanceList.back()->getBlock();
+
+                    gtFile.seekg(readOffset, std::ios::beg);                    // Move to the next unread position
+                    gtFile.read((char*)targetReadBuffer, readSize);             // Read the vector (dimension * type size)
+
+                    readOffset += readSize;                                     // Update the read offset
+
+                    numQuery++;                                                 // Update the number of loaded vectors
+                }
+
+                assert(p_groundTruthChunkList.size() == p_distanceList.size());
             }
 
             // May have rest to read more, but we don't care about it in this implementation.
@@ -243,7 +269,17 @@ void pduck::extender::GroundTruthReader::setPath(const char* p_path) noexcept
 
 bool pduck::extender::GroundTruthReader::loadGroundTruth(size_t p_numQueryVec) noexcept
 {
-    bool returnValue = loadDefaultGroundTruth(m_path.c_str(), p_numQueryVec, m_topK, m_groundTruthChunkList);
+    bool returnValue = false;
+    std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>> distanceChunkList;   // Dummy list
+
+    if (m_loadDistance)
+        returnValue = loadDefaultGroundTruth(
+            m_path.c_str(), p_numQueryVec, m_topK, m_groundTruthChunkList, distanceChunkList, true);
+
+    else
+        returnValue = loadDefaultGroundTruth(
+            m_path.c_str(), p_numQueryVec, m_topK, m_groundTruthChunkList, distanceChunkList, false);
+
     return returnValue;
 }
 

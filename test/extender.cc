@@ -22,7 +22,6 @@
 // ./build/bin/pduck-query-extender -n 1000000 -d 100 -p "./dataset/spacev1b/query.bin" -t INT8
 int main(int argc, char* argv[])
 {
-
     // Generate Sequence
     std::unique_ptr<pduck::extender::YcsbSeqGenerator> seqGenerator 
         = std::make_unique<pduck::extender::YcsbSeqGenerator>();
@@ -43,5 +42,4 @@ int main(int argc, char* argv[])
     size_t uniqueKeys = seqGenerator->checkUniqueIds(sequenceIdsByFreq);
 
     pduck::utils::Logger::getInstance().getLogger()->info("New record count ({}), unique count ({})", extendedRecordCount, uniqueKeys);
-
 }

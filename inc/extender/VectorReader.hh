@@ -99,6 +99,8 @@ namespace pduck
             virtual size_t removeDuplicates() noexcept override;
 
             virtual void reset() noexcept override;
+
+            virtual void exportHumanReadable(const char* p_path) noexcept;
         };
 
 
@@ -109,11 +111,17 @@ namespace pduck
             std::vector<
                 std::unique_ptr<::pduck::memory::FixedBuffer>> 
                                                 m_groundTruthChunkList;
+            std::vector<
+                std::unique_ptr<::pduck::memory::FixedBuffer>> 
+                                                m_distanceChunkList;
             
             size_t                              m_topK;
 
+            bool                                m_loadDistance;
+
         public:
-            GroundTruthReader() noexcept
+            GroundTruthReader(bool p_loadDistance = false) noexcept
+                : m_loadDistance(p_loadDistance)
             {
 
             }
@@ -137,6 +145,11 @@ namespace pduck
             virtual std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& getGroundTruthList() noexcept
             {
                 return m_groundTruthChunkList;
+            }
+
+            virtual std::vector<std::unique_ptr<::pduck::memory::FixedBuffer>>& getDistanceList() noexcept
+            {
+                return m_distanceChunkList;
             }
 
             virtual void reset() noexcept;

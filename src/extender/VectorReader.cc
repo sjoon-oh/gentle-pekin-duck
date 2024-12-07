@@ -145,7 +145,7 @@ namespace pduck
 
             if (p_loadDistance)
             {
-                readSize = (numQuery * sizeof(float));
+                readSize = (numTopK * sizeof(float));
                 numQuery = 0;
 
                 while (numQuery < p_numQueryVec)                                // Read until the end of the file
@@ -274,7 +274,7 @@ bool pduck::extender::GroundTruthReader::loadGroundTruth(size_t p_numQueryVec) n
 
     if (m_loadDistance)
         returnValue = loadDefaultGroundTruth(
-            m_path.c_str(), p_numQueryVec, m_topK, m_groundTruthChunkList, distanceChunkList, true);
+            m_path.c_str(), p_numQueryVec, m_topK, m_groundTruthChunkList, m_distanceChunkList, true);
 
     else
         returnValue = loadDefaultGroundTruth(

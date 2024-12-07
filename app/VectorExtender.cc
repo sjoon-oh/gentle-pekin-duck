@@ -369,6 +369,10 @@ int main(int argc, char* argv[])
             }
 
             exportDistFile.close();
+
+            pduck::utils::Logger::getInstance().getLogger()->info(
+                    "Exported size: {}", distanceFileWriteOffset
+                );
         }
 
         exportQueryFile.close();
